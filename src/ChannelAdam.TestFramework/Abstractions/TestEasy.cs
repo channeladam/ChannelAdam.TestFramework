@@ -15,7 +15,7 @@
 // limitations under the License.
 //-----------------------------------------------------------------------
 
-namespace ChannelAdam.TestFramework
+namespace ChannelAdam.TestFramework.Abstractions
 {
     using System;
     using System.Linq;
