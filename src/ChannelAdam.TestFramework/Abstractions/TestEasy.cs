@@ -22,6 +22,7 @@ namespace ChannelAdam.TestFramework.Abstractions
     using System.Threading.Tasks;
 
     using ChannelAdam.Logging;
+    using ChannelAdam.Logging.Abstractions;
 
     /// <summary>
     /// Abstract class that provides helpful functionality that can be used to more easily implement tests.
@@ -30,8 +31,9 @@ namespace ChannelAdam.TestFramework.Abstractions
     {
         private readonly ExpectedExceptionDescriptor expectedException;
 
-        private ISimpleLogger logger;
-        private ILogAsserter logAssert;
+        private readonly ISimpleLogger logger;
+        private readonly ILogAsserter logAssert;
+
         private Exception actualException;
 
         /// <summary>
@@ -214,8 +216,7 @@ namespace ChannelAdam.TestFramework.Abstractions
 
             string exceptionMessage;
 
-            AggregateException aggregateException = this.ActualException as AggregateException;
-            if (aggregateException != null)
+            if (this.ActualException is AggregateException aggregateException)
             {
                 exceptionMessage = string.Join(
                     Environment.NewLine + " === INNER EXCEPTION ==>: ",

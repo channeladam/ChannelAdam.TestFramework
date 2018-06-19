@@ -19,14 +19,15 @@ namespace ChannelAdam.TestFramework
 {
     using System;
 
-    using ChannelAdam.Logging;
+    using ChannelAdam.Logging.Abstractions;
 
     /// <summary>
     /// Describes attributes of an expected exception.
     /// </summary>
     public class ExpectedExceptionDescriptor
     {
-        private ISimpleLogger logger;
+        private readonly ISimpleLogger logger;
+
         private Type expectedType;
         private string messageShouldContainText;
 
@@ -46,7 +47,7 @@ namespace ChannelAdam.TestFramework
         /// The message should contain text.
         /// </value>
         public string MessageShouldContainText
-        { 
+        {
             get
             {
                 return this.messageShouldContainText;
