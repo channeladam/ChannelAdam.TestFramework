@@ -8,7 +8,7 @@
     <Product>ChannelAdam.TestFramework</Product>
     <Description>A .NET Standard 1.5 library providing foundations for automated testing - designed to make it easier to implement test cases and to read their output.</Description>
     <Copyright>Copyright 2014-2020 Adam Craven</Copyright>
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/channeladam/ChannelAdam.TestFramework</PackageProjectUrl>
     <RepositoryUrl>https://github.com/channeladam/ChannelAdam.TestFramework</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -23,6 +23,9 @@ This was a breaking change - the functionality from version 1 has been refactore
 - ChannelAdam.TestFramework.Xml (XML mapping and diff)
 </PackageReleaseNotes>
     <IsPackable>true</IsPackable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <IncludeSource>true</IncludeSource>>
   </PropertyGroup>
 
   <ItemGroup>
