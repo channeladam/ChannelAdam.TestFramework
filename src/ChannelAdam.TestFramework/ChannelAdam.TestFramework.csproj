@@ -25,7 +25,7 @@ This was a breaking change - the functionality from version 1 has been refactore
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <IncludeSource>true</IncludeSource>>
+    <IncludeSource>true</IncludeSource>
   </PropertyGroup>
 
   <ItemGroup>
