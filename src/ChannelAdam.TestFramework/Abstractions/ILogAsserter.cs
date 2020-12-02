@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ILogAsserter.cs">
-//     Copyright (c) 2014-2018 Adam Craven. All rights reserved.
+//     Copyright (c) 2014-2020 Adam Craven. All rights reserved.
 // </copyright>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,14 +25,14 @@ namespace ChannelAdam.TestFramework.Abstractions
     public interface ILogAsserter
     {
         /// <summary>
-        /// Asserts that the value is <code>true</code>.
+        /// Asserts that the value is <c>true</c>.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <param name="actual">The actual value to test.</param>
         void IsTrue(string itemName, bool actual);
 
         /// <summary>
-        /// Asserts that the value is <code>false</code>.
+        /// Asserts that the value is <c>false</c>.
         /// </summary>
         /// <param name="itemName">Name of the item.</param>
         /// <param name="actual">The actual value to test.</param>
@@ -42,7 +42,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         void IsFalse(string itemName, bool actual);
 
         /// <summary>
-        /// Asserts that the value is <code>null</code>.
+        /// Asserts that the value is <c>null</c>.
         /// </summary>
         /// <typeparam name="T">The type of the object on which to do the assertion.</typeparam>
         /// <param name="itemName">Name of the item.</param>
@@ -53,7 +53,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         void IsNull<T>(string itemName, T actual);
 
         /// <summary>
-        /// Asserts that the value is NOT <code>null</code>.
+        /// Asserts that the value is NOT <c>null</c>.
         /// </summary>
         /// <typeparam name="T">The type of the object on which to do the assertion.</typeparam>
         /// <param name="itemName">Name of the item.</param>

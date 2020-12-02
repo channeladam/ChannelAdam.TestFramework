@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="TestEasy.cs">
-//     Copyright (c) 2014-2018 Adam Craven. All rights reserved.
+//     Copyright (c) 2014-2020 Adam Craven. All rights reserved.
 // </copyright>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,8 @@ namespace ChannelAdam.TestFramework.Abstractions
 {
     using System;
     using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using ChannelAdam.Logging;
@@ -29,8 +31,6 @@ namespace ChannelAdam.TestFramework.Abstractions
     /// </summary>
     public abstract class TestEasy
     {
-        private readonly ExpectedExceptionDescriptor expectedException;
-
         private readonly ISimpleLogger logger;
         private readonly ILogAsserter logAssert;
 
@@ -48,7 +48,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         {
             this.logger = logger;
             this.logAssert = logAssert;
-            this.expectedException = new ExpectedExceptionDescriptor(logger);
+            this.ExpectedException = new ExpectedExceptionDescriptor(logger);
         }
 
         #region Properties
@@ -87,13 +87,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         /// <value>
         /// The expected exception descriptor.
         /// </value>
-        protected ExpectedExceptionDescriptor ExpectedException
-        {
-            get
-            {
-                return this.expectedException;
-            }
-        }
+        protected ExpectedExceptionDescriptor ExpectedException { get; }
 
         /// <summary>
         /// Gets or sets the actual exception that occurred.
@@ -204,7 +198,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "ChannelAdam.TestFramework.ILogAsserter.Fail(System.String,System.Object[])", Justification = "Not globalizing.")]
         protected void AssertExpectedException()
         {
-            if (!this.expectedException.IsExpected)
+            if (!this.ExpectedException.IsExpected)
             {
                 this.LogAssert.Fail("There is no expected exception defined.");
             }
@@ -239,6 +233,26 @@ namespace ChannelAdam.TestFramework.Abstractions
             {
                 this.LogAssert.StringContains("ActualException's message text", expectedExceptionMessageShouldContainText, exceptionMessage);
             }
+        }
+
+        /// <summary>
+        /// Set a private property on an object.
+        /// </summary>
+        /// <param name="propertyExpression">The expression for the property to set.</param>
+        /// <param name="value">The value to set.</param>
+        /// <typeparam name="T">The type of the object to set a value on.</typeparam>
+        /// <exception cref="ArgumentException">Thrown when the expression is not a property.</exception>
+        protected static void SetPrivateProperty<T>(Expression<Func<T>> propertyExpression, object value)
+        {
+            if (!(propertyExpression.Body is MemberExpression memberExpression)
+                    || memberExpression.Member?.MemberType != MemberTypes.Property)
+            {
+                throw new ArgumentException("Expression needs to be for a property", nameof(propertyExpression));
+            }
+
+            var property = (PropertyInfo)memberExpression.Member;
+            object obj = Expression.Lambda(memberExpression.Expression).Compile().DynamicInvoke();
+            property.SetValue(obj, value);
         }
     }
 }
