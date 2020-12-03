@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.5</TargetFramework>
+    <TargetFrameworks>net5.0;netstandard2.0;netstandard1.5</TargetFrameworks>
     <Version>0.0.0</Version>
     <Authors>Adam Craven</Authors>
     <Company>Adam Craven</Company>
     <Product>ChannelAdam.TestFramework</Product>
-    <Description>A .NET Standard 1.5 library providing foundations for automated testing - designed to make it easier to implement test cases and to read their output.</Description>
+    <Description>A .NET library providing foundations for automated testing - designed to make it easier to implement test cases and to read their output.</Description>
     <Copyright>Copyright 2014-2020 Adam Craven</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/channeladam/ChannelAdam.TestFramework</PackageProjectUrl>
@@ -14,18 +14,29 @@
     <RepositoryType>git</RepositoryType>
     <PackageIconUrl>https://devzone.channeladam.com/img/channeladam/channeladam-logo.png</PackageIconUrl>
     <PackageTags>ChannelAdam,TestFramework,TestEasy,Assert,LogAssert,LogAsserter,Testing,AutomatedTesting,TestingTools</PackageTags>
-    <PackageReleaseNotes>3.0.0 - Retarget to .NET Standard 1.5 and added TestEasy.SetPrivateProperty helper method.
+    <PackageReleaseNotes>
+3.0.3 - Multitarget .NET Standard 1.5, 2.0, and Net5.0, enabled nullable reference types, added TestEasy.SetPrivateProperty helper method.
 2.2.0 - Refactored out of ChannelAdam.TestFrameworks repo, target .NET Standard 1.3, no strong name signing.
-This was a breaking change - the functionality from version 1 has been refactored out into the following ChannelAdam .NET Standard libraries.
-- ChannelAdam.TestFramework (TestEasy and LogAssert)
-- ChannelAdam.TestFramework.Moq (the abstract MoqTestFixture. The MSTest, MSTestV2 and NUnit libraries depend on this and provide their own implementation of MoqTestFixture that you should use in your test projects)
-- ChannelAdam.TestFramework.Text (text and flat-file mapping and diff)
-- ChannelAdam.TestFramework.Xml (XML mapping and diff)
-</PackageReleaseNotes>
+  This was a breaking change - the functionality from version 1 has been refactored out into the following ChannelAdam .NET Standard libraries.
+  - ChannelAdam.TestFramework (TestEasy and LogAssert)
+  - ChannelAdam.TestFramework.Moq (the abstract MoqTestFixture. The MSTest, MSTestV2 and NUnit libraries depend on this and provide their own implementation of MoqTestFixture that you should use in your test projects)
+  - ChannelAdam.TestFramework.Text (text and flat-file mapping and diff)
+  - ChannelAdam.TestFramework.Xml (XML mapping and diff)
+    </PackageReleaseNotes>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>true</IncludeSource>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(Nullable) != 'enable' ">
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

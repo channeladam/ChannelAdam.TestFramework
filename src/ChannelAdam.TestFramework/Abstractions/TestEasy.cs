@@ -34,7 +34,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         private readonly ISimpleLogger logger;
         private readonly ILogAsserter logAssert;
 
-        private Exception actualException;
+        private Exception? actualException;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestEasy" /> class.
@@ -95,8 +95,7 @@ namespace ChannelAdam.TestFramework.Abstractions
         /// <value>
         /// The actual exception that occurred.
         /// </value>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "ChannelAdam.Logging.ISimpleLogger.Log(System.String)", Justification = "Not globalizing.")]
-        protected Exception ActualException
+        protected Exception? ActualException
         {
             get
             {
@@ -206,6 +205,7 @@ namespace ChannelAdam.TestFramework.Abstractions
             if (this.ActualException == null)
             {
                 this.LogAssert.Fail("ActualException is null");
+                return; // Nullable check does not know that Fail throws an exception.
             }
 
             string exceptionMessage;
@@ -221,8 +221,8 @@ namespace ChannelAdam.TestFramework.Abstractions
                 exceptionMessage = this.ActualException.Message;
             }
 
-            Type expectedExceptionType = this.ExpectedException.ExpectedType;
-            string expectedExceptionMessageShouldContainText = this.ExpectedException.MessageShouldContainText;
+            Type? expectedExceptionType = this.ExpectedException.ExpectedType;
+            string? expectedExceptionMessageShouldContainText = this.ExpectedException.MessageShouldContainText;
 
             if (expectedExceptionType != null)
             {
@@ -244,14 +244,20 @@ namespace ChannelAdam.TestFramework.Abstractions
         /// <exception cref="ArgumentException">Thrown when the expression is not a property.</exception>
         protected static void SetPrivateProperty<T>(Expression<Func<T>> propertyExpression, object value)
         {
-            if (!(propertyExpression.Body is MemberExpression memberExpression)
-                    || memberExpression.Member?.MemberType != MemberTypes.Property)
+            if (propertyExpression.Body is not MemberExpression memberExpression
+                    || (memberExpression?.Member?.MemberType != MemberTypes.Property)
+                    || (memberExpression?.Expression is null))
             {
                 throw new ArgumentException("Expression needs to be for a property", nameof(propertyExpression));
             }
 
+            object? obj = Expression.Lambda(memberExpression.Expression).Compile().DynamicInvoke();
+            if (obj is null)
+            {
+                throw new ArgumentException("Expression did not evaluate to an object", nameof(propertyExpression));
+            }
+
             var property = (PropertyInfo)memberExpression.Member;
-            object obj = Expression.Lambda(memberExpression.Expression).Compile().DynamicInvoke();
             property.SetValue(obj, value);
         }
     }

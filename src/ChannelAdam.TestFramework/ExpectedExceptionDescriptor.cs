@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ExpectedExceptionDescriptor.cs">
-//     Copyright (c) 2014-2018 Adam Craven. All rights reserved.
+//     Copyright (c) 2014-2020 Adam Craven. All rights reserved.
 // </copyright>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,8 +28,8 @@ namespace ChannelAdam.TestFramework
     {
         private readonly ISimpleLogger logger;
 
-        private Type expectedType;
-        private string messageShouldContainText;
+        private Type? expectedType;
+        private string? messageShouldContainText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpectedExceptionDescriptor"/> class.
@@ -46,7 +46,7 @@ namespace ChannelAdam.TestFramework
         /// <value>
         /// The message should contain text.
         /// </value>
-        public string MessageShouldContainText
+        public string? MessageShouldContainText
         {
             get
             {
@@ -66,7 +66,7 @@ namespace ChannelAdam.TestFramework
         /// <value>
         /// The expected type of the exception.
         /// </value>
-        public Type ExpectedType
+        public Type? ExpectedType
         {
             get
             {
