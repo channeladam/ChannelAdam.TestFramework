@@ -56,7 +56,7 @@ namespace ChannelAdam.TestFramework
             set
             {
                 this.messageShouldContainText = value;
-                this.logger.Log("Setting ExpectedException.MessageShouldContainText: '{0}'", this.messageShouldContainText);
+                this.logger.Log("Setting ExpectedException.MessageShouldContainText: '{0}'", this.messageShouldContainText ?? "null");
             }
         }
 
