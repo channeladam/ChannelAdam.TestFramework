@@ -15,7 +15,7 @@
     <PackageIconUrl>https://devzone.channeladam.com/img/channeladam/channeladam-logo.png</PackageIconUrl>
     <PackageTags>ChannelAdam,TestFramework,TestEasy,Assert,LogAssert,LogAsserter,Testing,AutomatedTesting,TestingTools</PackageTags>
     <PackageReleaseNotes>
-3.0.4 - Multitarget .NET Standard 1.5, 2.0, and Net5.0, enabled nullable reference types, added TestEasy.SetPrivateProperty helper method.
+3.0.5 - Multitarget .NET Standard 1.5, 2.0, and Net5.0, enabled nullable reference types, added TestEasy.SetPrivateProperty helper method.
 2.2.0 - Refactored out of ChannelAdam.TestFrameworks repo, target .NET Standard 1.3, no strong name signing.
   This was a breaking change - the functionality from version 1 has been refactored out into the following ChannelAdam .NET Standard libraries.
   - ChannelAdam.TestFramework (TestEasy and LogAssert)
@@ -40,7 +40,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ChannelAdam.Logging" Version="2.2.0" />
+    <PackageReference Include="ChannelAdam.Logging" Version="3.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
